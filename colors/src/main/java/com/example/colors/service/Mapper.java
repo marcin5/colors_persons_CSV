@@ -17,7 +17,7 @@ public class Mapper {
     this.modelMapper = modelMapper;
   }
   
-  public PersonDTO convertToDto(Person person){
+  public PersonDTO convertEtyToDto(Person person){
     return modelMapper.map(person, PersonDTO.class);
   }
   

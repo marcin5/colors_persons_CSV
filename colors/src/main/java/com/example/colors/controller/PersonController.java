@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.colors.exceptions.NoColorFromStringException;
 import com.example.colors.model.Color;
 import com.example.colors.model.PersonDTO;
 import com.example.colors.service.PersonService;
@@ -37,7 +38,15 @@ public class PersonController {
 
   @GetMapping("/persons/color/{color}")
   public List<PersonDTO> getAllPersonsForColor(@PathVariable String color) {
-    return personService.getAllByColor(Color.valueOf(color.toUpperCase()));
+    return personService.getAllByColor(getColorFromString(color));
+  }
+  
+  private Color getColorFromString(String requestColor) {
+    try {
+      return Color.valueOf(requestColor.toUpperCase());
+    } catch (Exception e) {
+      throw new NoColorFromStringException(requestColor);
+    }
   }
 
 }

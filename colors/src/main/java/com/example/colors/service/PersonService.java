@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.colors.exceptions.BusinessException;
+import com.example.colors.exceptions.NoPersonFoundException;
 import com.example.colors.jpa.Person;
 import com.example.colors.model.Color;
 import com.example.colors.model.PersonDTO;
@@ -12,6 +12,7 @@ import com.example.colors.repository.PersonRepository;
 
 @Service
 public class PersonService {
+  
   private PersonRepository personRepository;
   private Mapper mapper;
 
@@ -24,9 +25,9 @@ public class PersonService {
   public PersonDTO getPersonById(long personId) {
     Optional<Person> person = this.personRepository.findById(personId);
     if (person.isPresent()) {
-      return mapper.convertToDto(person.get());
+      return mapper.convertEtyToDto(person.get());
     }
-    throw new BusinessException("No Person found for id: " + personId);
+    throw new NoPersonFoundException(personId);
   }
 
   public List<PersonDTO> getAllPersons() {
