@@ -40,9 +40,6 @@ public abstract class PersonDaoTest<T extends PersonDAO<Person>> {
   public void schouldFindByColor(){
     //when
     List<Person> persons = this.dao.findByColor(Color.PURPLE);
-    List<Person> persons1 = this.dao.findByColor(Color.BLUE);
-    List<Person> persons2 = this.dao.findByColor(Color.GREEN);
-    List<Person> persons3 = this.dao.findByColor(Color.RED);
     
     //then
     assertThat(persons.size()).isEqualTo(1);

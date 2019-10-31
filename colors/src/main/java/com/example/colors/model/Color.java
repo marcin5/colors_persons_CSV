@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum Color {
   BLUE(1), GREEN(2), PURPLE(3), RED(4), YELLOW(5), TURQUOIS(6), WHITE(7);
 
-  public final int numberValue;
+  public final int value;
 
-  private Color(int numberValue) {
-    this.numberValue = numberValue;
+  private Color(int value) {
+    this.value = value;
   }
 
-  public int getNumberValue() {
-    return numberValue;
+  public int getValue() {
+    return value;
   }
 
   @JsonValue

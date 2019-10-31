@@ -1,6 +1,8 @@
 package com.example.colors.dao.impl;
 
-import java.io.FileReader;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.context.annotation.Primary;
@@ -8,25 +10,25 @@ import org.springframework.stereotype.Component;
 import com.example.colors.dao.PersonDAO;
 import com.example.colors.jpa.Person;
 import com.example.colors.model.Color;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 @Primary
 @Component("csv")
 public class CSVDao implements PersonDAO<Person> {
-  
+
   private static final String DATA_SOURCE_PATH = "src/main/resources/persons.csv";
 
   @Override
   public Optional<Person> findById(long id) {
 
-    
+
     return null;
   }
 
   @Override
   public List<Person> findAll() {
-    readAllDataAtOnce(DATA_SOURCE_PATH);
+    readAllDataAtOnce();
     return null;
   }
 
@@ -40,25 +42,18 @@ public class CSVDao implements PersonDAO<Person> {
     return null;
   }
 
-  public static void readAllDataAtOnce(String file) {
-    try {
-      FileReader filereader = new FileReader(file);
-
-      CSVReader csvReader = new CSVReaderBuilder(filereader)
-          .withSkipLines(1)
+  public static List<Person> readAllDataAtOnce() {
+    List<Person> persons = null;
+    try (Reader reader = Files.newBufferedReader(Paths.get(DATA_SOURCE_PATH))) {     
+      CsvToBean<Person> csvToBean = new CsvToBeanBuilder<Person>(reader)
+          .withType(Person.class)
           .build();
-      List<String[]> allData = csvReader.readAll();
-
-      // print Data
-      for (String[] row : allData) {
-        for (String cell : row) {
-          System.out.print(cell + "\t");
-        }
-        System.out.println();
-      }
+      
+      persons = csvToBean.parse();
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return persons;
   }
 
 }
