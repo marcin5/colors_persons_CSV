@@ -1,8 +1,9 @@
 package com.example.colors.controller;
 
 
-import static com.example.colors.ObjectMother.getPersonWithId;
+import static com.example.colors.ObjectMother.getPersonDTOWithId;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -44,7 +45,7 @@ public class PersonControllerTest {
   public void shouldReturnAllPersons() throws Exception {
     // given
     when(this.personService.getAllPersons())
-        .thenReturn(getPersons());
+        .thenReturn(getPersonsDTO());
 
     // when
     MvcResult result = this.mockMvc.perform(get("/persons"))
@@ -54,14 +55,14 @@ public class PersonControllerTest {
     // then
     String content = result.getResponse().getContentAsString();
     List<PersonDTO> persons = convertJsonToObject(content);
-    assertThat(persons.size()).isEqualTo(2);
+    assertTrue(persons.size() == 2);
   }
 
   @Test
   public void shouldReturnPerson() throws Exception {
     // given
     when(this.personService.getPersonById(1))
-        .thenReturn(getPersonWithId(1L));
+        .thenReturn(getPersonDTOWithId(1L));
 
     // when
     this.mockMvc.perform(get("/persons/1"))
@@ -89,7 +90,7 @@ public class PersonControllerTest {
   public void shouldReturnPersonsWithColor() throws Exception {
     // given
     when(this.personService.getAllByColor(Color.BLUE))
-        .thenReturn(getPersons());
+        .thenReturn(getPersonsDTO());
 
     // when
     MvcResult result = this.mockMvc.perform(get("/persons/color/blue"))
@@ -99,7 +100,7 @@ public class PersonControllerTest {
     // then
     String content = result.getResponse().getContentAsString();
     List<PersonDTO> persons = convertJsonToObject(content);
-    assertThat(persons.size()).isEqualTo(2);
+    assertTrue(persons.size() == 2L);
   }
 
   @Test
@@ -117,7 +118,7 @@ public class PersonControllerTest {
   @Test
   public void shouldAddPerson() throws Exception {
     // given
-    String json = mapper.writeValueAsString(getPersonWithId(1L));
+    String json = this.mapper.writeValueAsString(getPersonDTOWithId(1L));
     
     // when
     this.mockMvc.perform(post("/persons")
@@ -129,14 +130,14 @@ public class PersonControllerTest {
   private List<PersonDTO> convertJsonToObject(String content) {
     List<PersonDTO> persons = null;
     try {
-      persons = mapper.readValue(content, new TypeReference<List<PersonDTO>>() {});
+      persons = this.mapper.readValue(content, new TypeReference<List<PersonDTO>>() {});
     } catch (JsonProcessingException e) {
       Assert.fail("Fail to parse json");
     }
     return persons;
   }
 
-  private List<PersonDTO> getPersons() {
-    return Arrays.asList(getPersonWithId(1L), getPersonWithId(2L));
+  private List<PersonDTO> getPersonsDTO() {
+    return Arrays.asList(getPersonDTOWithId(1L), getPersonDTOWithId(2L));
   }
 }
