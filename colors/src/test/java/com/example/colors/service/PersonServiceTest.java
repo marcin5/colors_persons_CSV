@@ -1,6 +1,6 @@
 package com.example.colors.service;
 
-import static com.example.colors.ObjectMother.getPersonDTOWithId;
+import static com.example.colors.ObjectMother.getPersonTOWithId;
 import static com.example.colors.ObjectMother.getPersonWithId;
 import static com.example.colors.ObjectMother.getRandomPersons;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,10 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.example.colors.dao.PersonDAO;
+import com.example.colors.entity.Person;
 import com.example.colors.exceptions.NoPersonFoundException;
-import com.example.colors.jpa.Person;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonDTO;
+import com.example.colors.model.PersonTO;
 
 @SpringBootTest
 public class PersonServiceTest {
@@ -42,7 +42,7 @@ public class PersonServiceTest {
         .thenReturn(getRandomPersons());
 
     // when
-    List<PersonDTO> persons = this.personService.getAllPersons();
+    List<PersonTO> persons = this.personService.getAllPersons();
 
     // then
     assertThat(persons.size()).isEqualTo(2);
@@ -57,7 +57,7 @@ public class PersonServiceTest {
         .thenReturn(Optional.of(person));
 
     // when
-    PersonDTO personDTO = this.personService.getPersonById(1L);
+    PersonTO personDTO = this.personService.getPersonById(1L);
 
     // then
     assertThat(personDTO.getLastname()).isEqualTo("Big");
@@ -85,7 +85,7 @@ public class PersonServiceTest {
         .thenReturn(getRandomPersons());
 
     // when
-    List<PersonDTO> persons = this.personService.getAllByColor(Color.BLUE);
+    List<PersonTO> persons = this.personService.getAllByColor(Color.BLUE);
 
     // then
     assertThat(persons.size()).isEqualTo(2);
@@ -94,7 +94,7 @@ public class PersonServiceTest {
   @Test
   public void shouldAddPerson() {
     // when
-    this.personService.addPerson(getPersonDTOWithId(1L));
+    this.personService.addPerson(getPersonTOWithId(1L));
 
     // then
     verify(this.personRepository, atLeastOnce()).save(Mockito.any(Person.class));

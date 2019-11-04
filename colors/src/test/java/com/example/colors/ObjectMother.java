@@ -2,20 +2,20 @@ package com.example.colors;
 
 import java.util.Arrays;
 import java.util.List;
-import com.example.colors.jpa.Person;
-import com.example.colors.jpa.Person.PersonBuilder;
+import com.example.colors.entity.Person;
+import com.example.colors.entity.Person.PersonBuilder;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonDTO;
-import com.example.colors.model.PersonDTO.PersonDTOBuilder;
+import com.example.colors.model.PersonTO;
+import com.example.colors.model.PersonTO.PersonTOBuilder;
 
 public class ObjectMother {
   
-  public static PersonDTO getPersonDTOWithId(Long id) {
-    return getPersonDTOBuilderWithId(id).build();
+  public static PersonTO getPersonTOWithId(Long id) {
+    return getPersonTOBuilderWithId(id).build();
   }
 
-  public static PersonDTOBuilder getPersonDTOBuilderWithId(Long id) {
-    return PersonDTO.builder()
+  public static  PersonTOBuilder getPersonTOBuilderWithId(Long id) {
+    return PersonTO.builder()
         .id(id)
         .name("Patrick")
         .lastname("Big")

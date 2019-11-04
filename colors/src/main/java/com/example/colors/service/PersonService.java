@@ -7,10 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.colors.dao.PersonDAO;
+import com.example.colors.entity.Person;
 import com.example.colors.exceptions.NoPersonFoundException;
-import com.example.colors.jpa.Person;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonDTO;
+import com.example.colors.model.PersonTO;
 
 @Service
 public class PersonService {
@@ -24,32 +24,32 @@ public class PersonService {
     this.mapper = mapper;
   }
 
-  public List<PersonDTO> getAllPersons() {
+  public List<PersonTO> getAllPersons() {
     List<Person> persons = this.personDao.findAll();
     return convertToDto(persons);
   }
 
-  public PersonDTO getPersonById(long personId) {
+  public PersonTO getPersonById(long personId) {
     Optional<Person> person = this.personDao.findById(personId);
     if (person.isPresent()) {
-      return this.mapper.map(person.get(), PersonDTO.class);
+      return this.mapper.map(person.get(), PersonTO.class);
     }
     throw new NoPersonFoundException(personId);
   }
 
-  public List<PersonDTO> getAllByColor(Color color) {
+  public List<PersonTO> getAllByColor(Color color) {
     List<Person> persons = this.personDao.findByColor(color);
     return convertToDto(persons);
   }
 
-  public void addPerson(PersonDTO person) {
+  public void addPerson(PersonTO person) {
     Person personEty = this.mapper.map(person, Person.class);
     this.personDao.save(personEty);
   }
 
-  private List<PersonDTO> convertToDto(List<Person> persons) {
+  private List<PersonTO> convertToDto(List<Person> persons) {
     return persons.stream()
-        .map(entity -> mapper.map(entity, PersonDTO.class))
+        .map(entity -> mapper.map(entity, PersonTO.class))
         .collect(Collectors.toList());
   }
 

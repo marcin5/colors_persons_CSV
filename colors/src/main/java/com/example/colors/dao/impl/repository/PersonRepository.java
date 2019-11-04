@@ -1,10 +1,10 @@
-package com.example.colors.dao.impl;
+package com.example.colors.dao.impl.repository;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import com.example.colors.dao.PersonDAO;
-import com.example.colors.jpa.Person;
+import com.example.colors.entity.Person;
 import com.example.colors.model.Color;
 
 @Repository
