@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.colors.exceptions.NoColorFromStringException;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonTO;
+import com.example.colors.model.to.PersonTO;
 import com.example.colors.service.PersonService;
 
 @RestController
@@ -20,7 +20,7 @@ public class PersonController {
   public PersonController(PersonService personService) {
     this.personService = personService;
   }
-  
+
   @PostMapping("/persons")
   public void addPerson(@RequestBody PersonTO person) {
     this.personService.addPerson(person);
@@ -30,7 +30,7 @@ public class PersonController {
   public List<PersonTO> getAllPersons() {
     return personService.getAllPersons();
   }
- 
+
   @GetMapping("/persons/{id}")
   public PersonTO getPerson(@PathVariable long id) {
     return personService.getPersonById(id);
@@ -40,7 +40,7 @@ public class PersonController {
   public List<PersonTO> getAllPersonsForColor(@PathVariable String color) {
     return personService.getAllByColor(getColorFromString(color));
   }
-  
+
   private Color getColorFromString(String requestColor) {
     try {
       return Color.valueOf(requestColor.toUpperCase());

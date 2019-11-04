@@ -5,16 +5,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.colors.dao.PersonDAO;
 import com.example.colors.dao.PersonDaoTest;
 import com.example.colors.dao.impl.csv.CsvDao;
-import com.example.colors.entity.Person;
+import com.example.colors.model.entity.Person;
 
 @SpringBootTest
-public class CSVDaoTest extends PersonDaoTest<PersonDAO<Person>>{
+public class CSVDaoTest extends PersonDaoTest<PersonDAO<Person>> {
 
   @Autowired
   private CsvDao csvDao;
-  
+
   @Override
-  protected CsvDao createInstance(){ 
-      return csvDao; 
+  protected CsvDao createInstance() {
+    return csvDao;
   }
 }

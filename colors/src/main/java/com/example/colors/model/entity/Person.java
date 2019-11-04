@@ -1,4 +1,4 @@
-package com.example.colors.entity;
+package com.example.colors.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

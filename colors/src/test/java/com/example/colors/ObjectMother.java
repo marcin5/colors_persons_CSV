@@ -2,19 +2,19 @@ package com.example.colors;
 
 import java.util.Arrays;
 import java.util.List;
-import com.example.colors.entity.Person;
-import com.example.colors.entity.Person.PersonBuilder;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonTO;
-import com.example.colors.model.PersonTO.PersonTOBuilder;
+import com.example.colors.model.entity.Person;
+import com.example.colors.model.entity.Person.PersonBuilder;
+import com.example.colors.model.to.PersonTO;
+import com.example.colors.model.to.PersonTO.PersonTOBuilder;
 
 public class ObjectMother {
-  
+
   public static PersonTO getPersonTOWithId(Long id) {
     return getPersonTOBuilderWithId(id).build();
   }
 
-  public static  PersonTOBuilder getPersonTOBuilderWithId(Long id) {
+  public static PersonTOBuilder getPersonTOBuilderWithId(Long id) {
     return PersonTO.builder()
         .id(id)
         .name("Patrick")
@@ -23,7 +23,7 @@ public class ObjectMother {
         .city("Wroclaw")
         .color(Color.BLUE);
   }
-  
+
   public static Person getPersonWithId(Long id) {
     return getPersonBuilderWithId(id).build();
   }
@@ -37,7 +37,7 @@ public class ObjectMother {
         .city("Wroclaw")
         .color(Color.BLUE);
   }
-  
+
   public static List<Person> getRandomPersons() {
     return Arrays.asList(getPersonWithId(1L), getPersonWithId(2L));
   }

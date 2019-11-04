@@ -7,10 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.colors.dao.PersonDAO;
-import com.example.colors.entity.Person;
 import com.example.colors.exceptions.NoPersonFoundException;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonTO;
+import com.example.colors.model.entity.Person;
+import com.example.colors.model.to.PersonTO;
 
 @Service
 public class PersonService {

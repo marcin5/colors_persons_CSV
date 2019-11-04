@@ -14,12 +14,12 @@ public class PersonControllerAdvice {
   public ResponseEntity<Object> handleError(NoPersonFoundException ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
-  
+
   @ExceptionHandler(value = {NoColorFromStringException.class})
   public ResponseEntity<Object> handleError(NoColorFromStringException ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
   }
-  
+
   @ExceptionHandler(value = {Exception.class})
   public ResponseEntity<Object> handleError(Exception ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -9,7 +9,7 @@ public enum Color {
 
   @Getter
   private final int value;
-  
+
   private Color(int value) {
     this.value = value;
   }
@@ -18,7 +18,7 @@ public enum Color {
   public String toJson() {
     return name().toLowerCase();
   }
-  
+
   public static Color getEnumFromValue(Integer value) {
     if (value == null) {
       return null;

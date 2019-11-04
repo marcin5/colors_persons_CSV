@@ -7,18 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import com.example.colors.dao.PersonDAO;
-import com.example.colors.entity.Person;
 import com.example.colors.model.Color;
+import com.example.colors.model.entity.Person;
 
 @Primary
 @Component("CsvDao")
 public class CsvDao implements PersonDAO<Person> {
 
-  private CsvMapper csvMapper;
+  private CsvPersonMapper csvMapper;
   private CsvParser csvParser;
 
   @Autowired
-  public CsvDao(CsvMapper csvMapper, CsvParser csvParser) {
+  public CsvDao(CsvPersonMapper csvMapper, CsvParser csvParser) {
     this.csvMapper = csvMapper;
     this.csvParser = csvParser;
   }
@@ -26,12 +26,12 @@ public class CsvDao implements PersonDAO<Person> {
   @Override
   public Optional<Person> findById(long id) {
     List<CsvPerson> csvPersons = csvParser.getAll();
-    
-    Optional<CsvPerson> csvPerson =  csvPersons.stream()
+
+    Optional<CsvPerson> csvPerson = csvPersons.stream()
         .filter(e -> e.getId() == id)
         .findFirst();
-    
-    if(csvPerson.isPresent()) {
+
+    if (csvPerson.isPresent()) {
       return Optional.of(csvMapper.mapToEntity(csvPerson.get()));
     } else {
       return Optional.empty();

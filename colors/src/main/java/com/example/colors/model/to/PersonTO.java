@@ -1,5 +1,6 @@
-package com.example.colors.model;
+package com.example.colors.model.to;
 
+import com.example.colors.model.Color;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

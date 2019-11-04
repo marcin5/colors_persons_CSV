@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.example.colors.exceptions.NoColorFromStringException;
 import com.example.colors.exceptions.NoPersonFoundException;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonTO;
+import com.example.colors.model.to.PersonTO;
 import com.example.colors.service.PersonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

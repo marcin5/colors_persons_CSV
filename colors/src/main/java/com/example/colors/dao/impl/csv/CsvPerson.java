@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class CsvPerson {
-  
+
   private long id;
 
   @CsvBindByPosition(position = 0)
@@ -21,7 +21,7 @@ public class CsvPerson {
 
   @CsvBindByPosition(position = 3)
   private int color;
-  
+
   public String getCsvStringToWrite() {
     return "" + name + ", " + lastname + ", " + zipcodeAndCity + ", " + color;
   }

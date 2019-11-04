@@ -18,17 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.example.colors.dao.PersonDAO;
-import com.example.colors.entity.Person;
 import com.example.colors.exceptions.NoPersonFoundException;
 import com.example.colors.model.Color;
-import com.example.colors.model.PersonTO;
+import com.example.colors.model.entity.Person;
+import com.example.colors.model.to.PersonTO;
 
 @SpringBootTest
 public class PersonServiceTest {
-  
+
   @MockBean
   private PersonDAO<Person> personRepository;
-  
+
   @Autowired
   private PersonService personService;
 
@@ -68,14 +68,14 @@ public class PersonServiceTest {
     // given
     when(this.personRepository.findById(1L))
         .thenReturn(Optional.empty());
-    
+
     // when
-    //TODO assert junit5
+    // TODO assert junit5
     try {
       this.personService.getPersonById(1L);
       Assert.fail("schould throw an exception");
-    } catch (NoPersonFoundException e) {    // then 
-    }       
+    } catch (NoPersonFoundException e) { // then
+    }
   }
 
   @Test
