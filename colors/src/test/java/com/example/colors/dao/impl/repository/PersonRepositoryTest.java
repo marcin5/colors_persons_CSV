@@ -1,6 +1,6 @@
 package com.example.colors.dao.impl.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +15,11 @@ import com.example.colors.model.entity.PersonEty;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+//@PropertySource("src/test/resources/testData.sql")
 public class PersonRepositoryTest {
   
   @Autowired
   private PersonRepository repository;
-
 
   @Test
   public void shouldFindAll() {
@@ -27,7 +27,7 @@ public class PersonRepositoryTest {
     List<PersonEty> persons = this.repository.findAll();
 
     // then
-    assertThat(persons.size()).isEqualTo(2);
+    assertEquals(2, persons.size());
   }
 
   @Test
@@ -37,7 +37,7 @@ public class PersonRepositoryTest {
 
     // then
     assertTrue(person.isPresent());
-    assertThat(person.get().getLastname()).isEqualTo("Müller");
+    assertEquals("Müller", person.get().getLastname());
   }
 
   @Test
@@ -46,18 +46,18 @@ public class PersonRepositoryTest {
     List<PersonEty> persons = this.repository.findByColor(Color.PURPLE);
 
     // then
-    assertThat(persons.size()).isEqualTo(1);
+    assertEquals(1, persons.size());
   }
 
   @Test
   public void shouldAddPerson() {
     // given
-    // assertTrue(this.dao.findAll().size() == 2);
+    //assertEquals(2L, this.repository.findAll().size());
 
     // when
     this.repository.save(ObjectMother.getPersonEtyWithId(3L));
 
     // then
-    assertTrue(this.repository.findAll().size() == 3L);
+    assertEquals(3L, this.repository.findAll().size());
   }
 }

@@ -4,8 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import com.example.colors.exceptions.BusinessException;
 import com.example.colors.exceptions.NoColorFromStringException;
 import com.example.colors.exceptions.NoPersonFoundException;
+import com.example.colors.exceptions.UpdateNotAvailableException;
 
 @ControllerAdvice
 public class PersonControllerAdvice {
@@ -15,8 +17,8 @@ public class PersonControllerAdvice {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
   }
 
-  @ExceptionHandler(value = {NoColorFromStringException.class})
-  public ResponseEntity<Object> handleError(NoColorFromStringException ex) {
+  @ExceptionHandler(value = {NoColorFromStringException.class, UpdateNotAvailableException.class})
+  public ResponseEntity<Object> handleError(BusinessException ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
   }
 

@@ -1,6 +1,6 @@
-package com.example.colors.dao.impl.csv;
+package com.example.colors.dao.impl.csv.parser;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,15 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.example.colors.ObjectMother;
-import com.example.colors.dao.impl.csv.parser.CsvPersonParser;
-import com.example.colors.dao.impl.csv.parser.PersonCsv;
 import com.example.colors.exceptions.CsvParserException;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 
 @SpringBootTest
-//@TestPropertySource(properties = "csv.path=src/test/resources/testPersons.csv")
 public class CsvPersonParserTest {
   
   private String dataSourcePath = "src/test/resources/testPersons.csv";
@@ -49,14 +46,14 @@ public class CsvPersonParserTest {
     List<PersonCsv> persons = this.parser.getAllFromFile(dataSourcePath);
 
     // then
-    assertThat(persons.size()).isEqualTo(2);
+    assertEquals(2, persons.size());
   }
 
   @Test
   public void shouldAddOneRecord() {
     // given
     List<PersonCsv> personsBefore = this.parser.getAllFromFile(dataSourcePath);
-    assertThat(personsBefore.size()).isEqualTo(2);
+    assertEquals(2, personsBefore.size());
 
     PersonCsv person = ObjectMother.getPersonCsvWithId(1L);
 
@@ -65,17 +62,14 @@ public class CsvPersonParserTest {
 
     // then
     List<PersonCsv> personsAfter = this.parser.getAllFromFile(dataSourcePath);
-    assertThat(personsAfter.size()).isEqualTo(3);
+    assertEquals(3, personsAfter.size());
   }
   
   @Test
   public void shouldThrowBussinesException() {
-    // given
-    PersonCsv person = new PersonCsv();
-
-    // when //then
+    // given // when //then
     Assertions.assertThrows(CsvParserException.class, () -> {
-      this.parser.addToFile(person, "fakePath/fake.csv");
+      this.parser.addToFile(new PersonCsv(), "fakePath/fake.csv");
     });
   }
 }

@@ -1,12 +1,11 @@
-package com.example.colors.dao.impl.csv;
+package com.example.colors.dao.impl.csv.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.example.colors.ObjectMother;
-import com.example.colors.dao.impl.csv.parser.CsvPersonMapper;
-import com.example.colors.dao.impl.csv.parser.PersonCsv;
 import com.example.colors.model.Color;
 import com.example.colors.model.entity.PersonEty;
 
@@ -25,12 +24,12 @@ public class CsvPersonMapperTest {
     PersonEty person = this.mapper.mapToEntity(csvPerson);
 
     // then
-    assertThat(person.getId()).isEqualTo(1L);
-    assertThat(person.getName()).isEqualTo("Patrick");
-    assertThat(person.getLastname()).isEqualTo("Big");
-    assertThat(person.getZipcode()).isEqualTo(50345L);
-    assertThat(person.getCity()).isEqualTo("Wroclaw");
-    assertThat(person.getColor()).isEqualTo(Color.BLUE);
+    assertEquals(1L, person.getId().longValue());
+    assertEquals("Patrick", person.getName());
+    assertEquals("Big", person.getLastname());
+    assertEquals(50345L, person.getZipcode().longValue());
+    assertEquals("Wroclaw", person.getCity());
+    assertEquals(Color.BLUE, person.getColor());
   }
   
   @Test
@@ -42,11 +41,11 @@ public class CsvPersonMapperTest {
     PersonCsv personCsv = this.mapper.mapToCsv(person);
 
     // then
-    assertThat(personCsv.getId()).isEqualTo(1L);
-    assertThat(personCsv.getName()).isEqualTo("Patrick");
-    assertThat(personCsv.getLastname()).isEqualTo("Big");
-    assertThat(personCsv.getZipcodeAndCity()).isEqualTo("32456 Wroclaw");
-    assertThat(personCsv.getColor()).isEqualTo(1);
+    assertEquals(1L, personCsv.getId().longValue());
+    assertEquals("Patrick", personCsv.getName());
+    assertEquals("Big", personCsv.getLastname());
+    assertEquals("32456 Wroclaw", personCsv.getZipcodeAndCity());
+    assertEquals(1, personCsv.getColor().intValue());
   }
   
   @Test
@@ -60,6 +59,6 @@ public class CsvPersonMapperTest {
 
     // then
     assertThat(person.getZipcode()).isNull();
-    assertThat(person.getCity()).isNull();
+    assertThat(person.getCity()).isEmpty();
   }
 }

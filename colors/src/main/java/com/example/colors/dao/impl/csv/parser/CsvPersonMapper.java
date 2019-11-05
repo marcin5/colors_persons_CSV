@@ -40,7 +40,7 @@ public class CsvPersonMapper {
     try {
       return csvPerson.getZipcodeAndCity().trim().substring(6);
     } catch (Exception e) {
-      return null;
+      return "";
     }
   }
 

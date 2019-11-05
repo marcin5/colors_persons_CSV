@@ -15,7 +15,7 @@ import com.example.colors.model.Color;
 import com.example.colors.model.entity.PersonEty;
 
 @Primary
-@Component("CsvDao")
+@Component
 public class CsvPersonDao implements PersonDAO<PersonEty> {
   
   @Value("${csv.path}")
@@ -48,7 +48,7 @@ public class CsvPersonDao implements PersonDAO<PersonEty> {
   @Override
   public List<PersonEty> findAll() {
     List<PersonCsv> csvPersons = this.csvParser.getAllFromFile(dataSourcePath);
-    return csvMapper.mapToEntity(csvPersons);
+    return this.csvMapper.mapToEntity(csvPersons);
   }
 
   @Override

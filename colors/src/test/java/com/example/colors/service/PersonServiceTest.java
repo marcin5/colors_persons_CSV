@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.example.colors.dao.PersonDAO;
+import com.example.colors.dao.impl.csv.CsvPersonDao;
 import com.example.colors.exceptions.NoPersonFoundException;
+import com.example.colors.exceptions.UpdateNotAvailableException;
 import com.example.colors.model.Color;
 import com.example.colors.model.entity.PersonEty;
 import com.example.colors.model.to.PersonTO;
@@ -26,8 +28,8 @@ import com.example.colors.model.to.PersonTO;
 @SpringBootTest
 public class PersonServiceTest {
 
-  @MockBean
-  private PersonDAO<PersonEty> personRepository;
+  @MockBean(classes = CsvPersonDao.class)
+  private PersonDAO<PersonEty> csvDao;
 
   @Autowired
   private PersonService personService;
@@ -38,7 +40,7 @@ public class PersonServiceTest {
   @Test
   public void shouldReturnAllPersons() {
     // given
-    when(this.personRepository.findAll())
+    when(this.csvDao.findAll())
         .thenReturn(getRandomPersons());
 
     // when
@@ -53,7 +55,7 @@ public class PersonServiceTest {
     // given
     long personId = 1L;
     PersonEty person = getPersonEtyWithId(personId);
-    when(this.personRepository.findById(personId))
+    when(this.csvDao.findById(personId))
         .thenReturn(Optional.of(person));
 
     // when
@@ -66,7 +68,7 @@ public class PersonServiceTest {
   @Test
   public void shouldThrowExceptionWhenNoPersonForId() {
     // given
-    when(this.personRepository.findById(1L))
+    when(this.csvDao.findById(1L))
         .thenReturn(Optional.empty());
 
     // when //then
@@ -78,7 +80,7 @@ public class PersonServiceTest {
   @Test
   public void shouldReturnPersonsByColor() {
     // given
-    when(this.personRepository.findByColor(Color.BLUE))
+    when(this.csvDao.findByColor(Color.BLUE))
         .thenReturn(getRandomPersons());
 
     // when
@@ -91,9 +93,17 @@ public class PersonServiceTest {
   @Test
   public void shouldAddPerson() {
     // when
-    this.personService.addPerson(getPersonTOWithId(1L));
+    this.personService.addPerson(getPersonTOWithId(null));
 
     // then
-    verify(this.personRepository, atLeastOnce()).save(Mockito.any(PersonEty.class));
+    verify(this.csvDao, atLeastOnce()).save(Mockito.any(PersonEty.class));
+  }
+
+  @Test
+  public void shouldThrowExceptionWhenPersonWithId() {
+    // given // when //then
+    Assertions.assertThrows(UpdateNotAvailableException.class, () -> {
+      this.personService.addPerson(getPersonTOWithId(1L));
+    });
   }
 }

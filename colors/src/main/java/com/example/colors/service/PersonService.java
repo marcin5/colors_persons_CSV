@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.colors.dao.PersonDAO;
 import com.example.colors.exceptions.NoPersonFoundException;
+import com.example.colors.exceptions.UpdateNotAvailableException;
 import com.example.colors.model.Color;
 import com.example.colors.model.entity.PersonEty;
 import com.example.colors.model.to.PersonTO;
@@ -43,6 +44,10 @@ public class PersonService {
   }
 
   public void addPerson(PersonTO person) {
+    Long id = person.getId();
+    if (id != null) {
+      throw new UpdateNotAvailableException(id);
+    }
     PersonEty personEty = this.mapper.map(person, PersonEty.class);
     this.personDao.save(personEty);
   }
