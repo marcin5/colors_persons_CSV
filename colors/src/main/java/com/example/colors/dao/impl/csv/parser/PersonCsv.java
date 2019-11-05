@@ -1,14 +1,18 @@
-package com.example.colors.dao.impl.csv;
+package com.example.colors.dao.impl.csv.parser;
 
 import com.opencsv.bean.CsvBindByPosition;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class CsvPerson {
+@NoArgsConstructor
+@AllArgsConstructor
+public class PersonCsv {
 
-  private long id;
+  private Long id;
 
   @CsvBindByPosition(position = 0)
   private String name;
@@ -20,9 +24,9 @@ public class CsvPerson {
   private String zipcodeAndCity;
 
   @CsvBindByPosition(position = 3)
-  private int color;
+  private Integer color;
 
   public String getCsvStringToWrite() {
-    return "" + name + ", " + lastname + ", " + zipcodeAndCity + ", " + color;
+    return name + ", " + lastname + ", " + zipcodeAndCity + ", " + color;
   }
 }

@@ -5,12 +5,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import com.example.colors.dao.PersonDAO;
 import com.example.colors.model.Color;
-import com.example.colors.model.entity.Person;
+import com.example.colors.model.entity.PersonEty;
 
 @Repository
-public interface PersonRepository extends CrudRepository<Person, Long>, PersonDAO<Person> {
+public interface PersonRepository extends CrudRepository<PersonEty, Long>, PersonDAO<PersonEty> {
 
-  public List<Person> findAll();
+  public List<PersonEty> findAll();
 
-  public List<Person> findByColor(Color color);
+  public List<PersonEty> findByColor(Color color);
 }

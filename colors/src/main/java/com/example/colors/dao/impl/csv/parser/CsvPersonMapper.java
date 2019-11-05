@@ -1,22 +1,23 @@
-package com.example.colors.dao.impl.csv;
+package com.example.colors.dao.impl.csv.parser;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import com.example.colors.model.Color;
-import com.example.colors.model.entity.Person;
+import com.example.colors.model.entity.PersonEty;
+import com.google.common.base.CharMatcher;
 
 @Component
 public class CsvPersonMapper {
 
-  public List<Person> mapToEntity(List<CsvPerson> csvPersons) {
+  public List<PersonEty> mapToEntity(List<PersonCsv> csvPersons) {
     return csvPersons.stream()
         .map(this::mapToEntity)
         .collect(Collectors.toList());
   }
 
-  public Person mapToEntity(CsvPerson csvPerson) {
-    return Person.builder()
+  public PersonEty mapToEntity(PersonCsv csvPerson) {
+    return PersonEty.builder()
         .id(csvPerson.getId())
         .name(csvPerson.getName())
         .lastname(csvPerson.getLastname())
@@ -26,28 +27,29 @@ public class CsvPersonMapper {
         .build();
   }
 
-  private Long getZipcode(CsvPerson csvPerson) {
+  private Long getZipcode(PersonCsv csvPerson) {
     try {
-      String zipcode = csvPerson.getZipcodeAndCity().trim().substring(0, 5);
+      String zipcode = CharMatcher.inRange('0','9').retainFrom(csvPerson.getZipcodeAndCity());
       return Long.valueOf(zipcode);
     } catch (Exception e) {
       return null;
     }
   }
 
-  private String getCity(CsvPerson csvPerson) {
+  private String getCity(PersonCsv csvPerson) {
     try {
-      return csvPerson.getZipcodeAndCity().trim().substring(5);
+      return csvPerson.getZipcodeAndCity().trim().substring(6);
     } catch (Exception e) {
       return null;
     }
   }
 
-  public CsvPerson mapToCsv(Person person) {
-    return CsvPerson.builder()
+  public PersonCsv mapToCsv(PersonEty person) {
+    return PersonCsv.builder()
+        .id(person.getId())
         .name(person.getName())
         .lastname(person.getLastname())
-        .zipcodeAndCity("" + person.getZipcode() + person.getCity())
+        .zipcodeAndCity("" + person.getZipcode() + " " + person.getCity())
         .color(person.getColor().getValue())
         .build();
   }

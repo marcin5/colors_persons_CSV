@@ -1,7 +1,7 @@
 package com.example.colors.service;
 
+import static com.example.colors.ObjectMother.getPersonEtyWithId;
 import static com.example.colors.ObjectMother.getPersonTOWithId;
-import static com.example.colors.ObjectMother.getPersonWithId;
 import static com.example.colors.ObjectMother.getRandomPersons;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.atLeastOnce;
@@ -9,8 +9,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Rule;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
@@ -20,14 +20,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.example.colors.dao.PersonDAO;
 import com.example.colors.exceptions.NoPersonFoundException;
 import com.example.colors.model.Color;
-import com.example.colors.model.entity.Person;
+import com.example.colors.model.entity.PersonEty;
 import com.example.colors.model.to.PersonTO;
 
 @SpringBootTest
 public class PersonServiceTest {
 
   @MockBean
-  private PersonDAO<Person> personRepository;
+  private PersonDAO<PersonEty> personRepository;
 
   @Autowired
   private PersonService personService;
@@ -52,7 +52,7 @@ public class PersonServiceTest {
   public void shouldReturnPersonById() {
     // given
     long personId = 1L;
-    Person person = getPersonWithId(personId);
+    PersonEty person = getPersonEtyWithId(personId);
     when(this.personRepository.findById(personId))
         .thenReturn(Optional.of(person));
 
@@ -69,13 +69,10 @@ public class PersonServiceTest {
     when(this.personRepository.findById(1L))
         .thenReturn(Optional.empty());
 
-    // when
-    // TODO assert junit5
-    try {
+    // when //then
+    Assertions.assertThrows(NoPersonFoundException.class, () -> {
       this.personService.getPersonById(1L);
-      Assert.fail("schould throw an exception");
-    } catch (NoPersonFoundException e) { // then
-    }
+    });
   }
 
   @Test
@@ -97,6 +94,6 @@ public class PersonServiceTest {
     this.personService.addPerson(getPersonTOWithId(1L));
 
     // then
-    verify(this.personRepository, atLeastOnce()).save(Mockito.any(Person.class));
+    verify(this.personRepository, atLeastOnce()).save(Mockito.any(PersonEty.class));
   }
 }
