@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import com.example.colors.dao.PersonDAO;
 import com.example.colors.dao.impl.csv.parser.CsvPersonMapper;
@@ -14,7 +13,6 @@ import com.example.colors.dao.impl.csv.parser.PersonCsv;
 import com.example.colors.model.Color;
 import com.example.colors.model.entity.PersonEty;
 
-@Primary
 @Component
 public class CsvPersonDao implements PersonDAO<PersonEty> {
   
@@ -63,10 +61,10 @@ public class CsvPersonDao implements PersonDAO<PersonEty> {
   }
 
   @Override
-  public PersonEty save(PersonEty t) {
-    PersonCsv csvPerson = this.csvMapper.mapToCsv(t);
+  public PersonEty save(PersonEty person) {
+    PersonCsv csvPerson = this.csvMapper.mapToCsv(person);
     this.csvParser.addToFile(csvPerson, dataSourcePath);
-    return t;
+    return person;
   }
 
 }
