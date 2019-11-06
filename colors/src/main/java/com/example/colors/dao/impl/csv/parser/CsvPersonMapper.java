@@ -38,7 +38,7 @@ public class CsvPersonMapper {
 
   private String getCity(PersonCsv csvPerson) {
     try {
-      return csvPerson.getZipcodeAndCity().trim().substring(6);
+      return csvPerson.getZipcodeAndCity().replaceAll("\\d", "").trim();
     } catch (Exception e) {
       return "";
     }

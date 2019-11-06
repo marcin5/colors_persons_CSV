@@ -26,7 +26,7 @@ public class PersonTO {
       @JsonProperty(required = true) String lastname,
       @JsonProperty(required = true) Long zipcode,
       @JsonProperty(required = true) String city,
-      @JsonProperty(required = true) Color color) {
+      @JsonProperty(required = true) Color color) {   
     this.name = name;
     this.lastname = lastname;
     this.zipcode = zipcode;
