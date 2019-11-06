@@ -15,7 +15,7 @@ import com.example.colors.model.entity.PersonEty;
 
 @Component
 public class CsvPersonDao implements PersonDAO<PersonEty> {
-  
+
   @Value("${csv.path}")
   private String dataSourcePath;
 

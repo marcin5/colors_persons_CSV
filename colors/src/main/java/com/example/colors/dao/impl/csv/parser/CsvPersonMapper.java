@@ -29,7 +29,7 @@ public class CsvPersonMapper {
 
   private Long getZipcode(PersonCsv csvPerson) {
     try {
-      String zipcode = CharMatcher.inRange('0','9').retainFrom(csvPerson.getZipcodeAndCity());
+      String zipcode = CharMatcher.inRange('0', '9').retainFrom(csvPerson.getZipcodeAndCity());
       return Long.valueOf(zipcode);
     } catch (Exception e) {
       return null;

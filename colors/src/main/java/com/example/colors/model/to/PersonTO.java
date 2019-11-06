@@ -19,14 +19,14 @@ public class PersonTO {
   private Long zipcode;
   private String city;
   private Color color;
-  
+
   @JsonCreator
   public PersonTO(
-      @JsonProperty(required = true)String name, 
-      @JsonProperty(required = true)String lastname, 
-      @JsonProperty(required = true)Long zipcode, 
-      @JsonProperty(required = true)String city, 
-      @JsonProperty(required = true)Color color) {
+      @JsonProperty(required = true) String name,
+      @JsonProperty(required = true) String lastname,
+      @JsonProperty(required = true) Long zipcode,
+      @JsonProperty(required = true) String city,
+      @JsonProperty(required = true) Color color) {
     this.name = name;
     this.lastname = lastname;
     this.zipcode = zipcode;

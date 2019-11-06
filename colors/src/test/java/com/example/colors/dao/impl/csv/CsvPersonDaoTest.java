@@ -69,23 +69,22 @@ public class CsvPersonDaoTest {
   public void shouldAddPerson() {
     // given
     PersonEty personToSave = ObjectMother.getPersonEtyWithId(3L);
-    
+
     // when
     PersonEty personReturnd = this.dao.save(personToSave);
 
     // then
     assertEquals(personToSave, personReturnd);
-    verify(csvParser)
-        .addToFile(any(PersonCsv.class), anyString());
+    verify(csvParser).addToFile(any(PersonCsv.class), anyString());
   }
 
   private List<PersonCsv> getPersonsCsv() {
     return Arrays.asList(
         getPersonCsvBuilderWithId(1L)
-        .color(Color.BLUE.getValue()).build(),
+            .color(Color.BLUE.getValue()).build(),
         getPersonCsvBuilderWithId(2L)
-        .color(Color.GREEN.getValue()).build(),
+            .color(Color.GREEN.getValue()).build(),
         getPersonCsvBuilderWithId(3L)
-        .color(Color.PURPLE.getValue()).build());
+            .color(Color.PURPLE.getValue()).build());
   }
 }

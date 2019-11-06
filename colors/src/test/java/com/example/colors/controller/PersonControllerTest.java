@@ -35,7 +35,8 @@ public class PersonControllerTest {
   @MockBean
   private PersonService personService;
 
-  private ObjectMapper mapper = new ObjectMapper();
+  @Autowired
+  private ObjectMapper mapper;
 
   @Test
   public void shouldReturnAllPersons() throws Exception {
@@ -107,7 +108,7 @@ public class PersonControllerTest {
   public void shouldAddPerson() throws Exception {
     // given
     String json = this.mapper.writeValueAsString(getPersonTOWithId(1L));
-    
+
     // when
     this.mockMvc.perform(post("/persons")
         .contentType(MediaType.APPLICATION_JSON)
@@ -118,7 +119,8 @@ public class PersonControllerTest {
   private List<PersonTO> getPersonsTO() {
     return Arrays.asList(
         getPersonTOBuilderWithId(1L).name("John")
-        .color(Color.BLUE).build(),
+            .color(Color.BLUE).build(),
         getPersonTOBuilderWithId(2L).name("Mark")
-        .color(Color.GREEN).build());}
+            .color(Color.GREEN).build());
+  }
 }

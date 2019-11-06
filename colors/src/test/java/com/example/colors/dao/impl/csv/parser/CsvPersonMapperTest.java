@@ -14,12 +14,12 @@ public class CsvPersonMapperTest {
 
   @Autowired
   private CsvPersonMapper mapper;
-  
+
   @Test
   public void shouldMapPersonCsvObjetToEntity() {
     // given
     PersonCsv csvPerson = ObjectMother.getPersonCsvWithId(1L);
-    
+
     // when
     PersonEty person = this.mapper.mapToEntity(csvPerson);
 
@@ -31,12 +31,12 @@ public class CsvPersonMapperTest {
     assertEquals("Wroclaw", person.getCity());
     assertEquals(Color.BLUE, person.getColor());
   }
-  
+
   @Test
   public void shouldMapEntityToPersonCsvObject() {
     // given
     PersonEty person = ObjectMother.getPersonEtyWithId(1L);
-    
+
     // when
     PersonCsv personCsv = this.mapper.mapToCsv(person);
 
@@ -47,13 +47,13 @@ public class CsvPersonMapperTest {
     assertEquals("32456 Wroclaw", personCsv.getZipcodeAndCity());
     assertEquals(1, personCsv.getColor().intValue());
   }
-  
+
   @Test
   public void shouldMapZipcodeAndCityCorrectly() {
     // given
     PersonCsv csvPerson = ObjectMother.getPersonCsvBuilderWithId(1L)
         .zipcodeAndCity(null).build();
-    
+
     // when
     PersonEty person = this.mapper.mapToEntity(csvPerson);
 
