@@ -56,5 +56,18 @@ public class ObjectMother {
   public static List<PersonEty> getRandomPersons() {
     return Arrays.asList(getPersonEtyWithId(1L), getPersonEtyWithId(2L));
   }
+  
+  public static List<PersonCsv> getDataSetExample1() {
+    return Arrays.asList(
+        getPersonCsvBuilderWithId(1L)
+            .name("John")
+            .color(Color.BLUE.getValue()).build(),
+        getPersonCsvBuilderWithId(2L)
+            .name("Patrick")
+            .color(Color.GREEN.getValue()).build(),
+        getPersonCsvBuilderWithId(3L)
+            .name("Stefan")
+            .color(Color.PURPLE.getValue()).build());
+  }
 
 }
