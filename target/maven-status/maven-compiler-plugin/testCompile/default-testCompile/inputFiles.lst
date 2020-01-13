@@ -1,0 +1,8 @@
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/controller/PersonControllerTest.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/IntegrationTests.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/dao/impl/csv/parser/CsvPersonMapperTest.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/ObjectMother.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/dao/impl/csv/parser/CsvPersonParserTest.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/TestHelper.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/service/PersonServiceTest.java
+/Users/marcinmoryl/git/colors_persons_CSV/src/test/java/com/example/colors/dao/impl/csv/CsvPersonDaoTest.java

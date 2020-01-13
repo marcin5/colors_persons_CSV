@@ -1,0 +1,8 @@
+com/example/colors/ObjectMother.class
+com/example/colors/service/PersonServiceTest.class
+com/example/colors/IntegrationTests.class
+com/example/colors/dao/impl/csv/parser/CsvPersonParserTest.class
+com/example/colors/controller/PersonControllerTest.class
+com/example/colors/dao/impl/csv/CsvPersonDaoTest.class
+com/example/colors/TestHelper.class
+com/example/colors/dao/impl/csv/parser/CsvPersonMapperTest.class
